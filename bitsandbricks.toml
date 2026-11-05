@@ -1,0 +1,25 @@
+# What the repos of these orgs should look like. Used by bnb (bitsandbricks-cli):
+#   bnb init bitsandbricks-ch/bitsandbricks-defaults
+#   bnb doctor            check every repo      bnb doctor --fix   apply settings and rulesets
+#   bnb sync              PRs with shared files
+# The first group that matches a repo is its group; the last one (no match) takes the rest.
+orgs = ["hubra-app", "bitsandbricks-ch"]
+
+# Hubra plugins follow hubra-plugins-template as it is live on GitHub: change the
+# template, and every plugin is expected to follow.
+[[group]]
+name = "hubra plugins"
+match = { org = "hubra-app", prefix = "hubra-plugin-" }
+from = "hubra-app/hubra-plugins-template"
+files = [".gitattributes", ".gitignore", ".github/pull_request_template.md", ".github/rulesets/main.json",
+         ".github/rulesets/tags.json", ".github/workflows/release.yml", "LICENSE", "SECURITY.md"]
+# `bnb merge` uses auto-merge; the template must have it, so every plugin does.
+require = { allow_auto_merge = true, delete_branch_on_merge = true, has_wiki = false, has_projects = false }
+
+[[group]]
+name = "default"
+settings = { allow_auto_merge = true, delete_branch_on_merge = true }
+security = { secret_scanning = "enabled", secret_scanning_push_protection = "enabled" }
+vulnerability_reporting = true
+# rulesets = "rulesets/default"   # ruleset JSON files every repo of the group must have
+# files = "files/default"         # files every repo of the group gets (bnb sync)
