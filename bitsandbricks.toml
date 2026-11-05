@@ -15,6 +15,8 @@ files = [".gitattributes", ".gitignore", ".github/pull_request_template.md", ".g
          ".github/rulesets/tags.json", ".github/workflows/release.yml", "LICENSE", "SECURITY.md"]
 # `bnb merge` uses auto-merge; the template must have it, so every plugin does.
 require = { allow_auto_merge = true, delete_branch_on_merge = true, has_wiki = false, has_projects = false }
+# Every plugin release carries the signed plugin zip (bnb releases and the Releases tab flag it).
+release_assets = ["*.zip"]
 
 [[group]]
 name = "default"
