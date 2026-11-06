@@ -15,6 +15,22 @@ files = [".gitattributes", ".gitignore", ".github/pull_request_template.md", ".g
          ".github/rulesets/tags.json", ".github/workflows/release.yml", "LICENSE", "SECURITY.md"]
 # `bnb merge` uses auto-merge; the template must have it, so every plugin does.
 require = { allow_auto_merge = true, delete_branch_on_merge = true, has_wiki = false, has_projects = false }
+# Every plugin release carries the signed plugin zip (bnb releases and the Releases tab flag it).
+release_assets = ["*.zip"]
+# bnb bump raises it in a PR with the changelog section; bnb release (R) tags v<version>.
+version = "plugin.yaml"
+changelog = ["CHANGELOG.md"]
+
+# Hubra itself: the default group's settings, plus where its version lives.
+# A repo takes the first group that matches, so this group repeats them.
+[[group]]
+name = "hubra core"
+match = { repos = ["hubra-app/hubra"] }
+settings = { allow_auto_merge = true, delete_branch_on_merge = true }
+security = { secret_scanning = "enabled", secret_scanning_push_protection = "enabled" }
+vulnerability_reporting = true
+version = "app/backend/pyproject.toml"
+changelog = ["app/backend/CHANGELOG.md", "app/backend/CHANGELOG.de.md"]
 
 [[group]]
 name = "default"
